@@ -1,26 +1,18 @@
-# Stage 1: Build Vue application
-FROM node:alpine as builder
+# Frontend Dockerfile
+FROM node:18-alpine AS build
 
 WORKDIR /app
 
+# Copy the package.json and install dependencies
 COPY package*.json ./
-
-# Install dependencies
 RUN npm install
 
-# Install vite globally
-RUN npm install -g vite
-
-# Copy the whole code to builder and build the app
+# Copy the rest of the application code and build it
 COPY . .
 RUN npm run build
 
-# Stage 2: Create container for running Vue application
+# Nginx stage
 FROM nginx:alpine
-
-COPY --from=builder /app/dist /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/nginx.conf
-
+COPY --from=build /app/dist /usr/share/nginx/html
 EXPOSE 80
-
 CMD ["nginx", "-g", "daemon off;"]

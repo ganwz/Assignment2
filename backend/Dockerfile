@@ -1,32 +1,14 @@
-# Stage 1: Maven Build
-FROM maven:3.9.1-eclipse-temurin-17-alpine as builder
+# Backend Dockerfile
+FROM openjdk:17-jdk-slim
 
-# Set working directory
+# Set the working directory inside the container
 WORKDIR /app
 
-# Copy pom.xml and source code to the container
-COPY pom.xml .
+# Copy the build files to the container
+COPY build/libs/*.jar app.jar
 
-# Download dependencies only if pom changed
-RUN mvn dependency:go-offline
-
-# Copy the source code
-COPY src ./src
-
-# Run Maven build
-RUN mvn -B -e clean package -DskipTests
-
-# Stage 2: Build final image
-FROM eclipse-temurin:20-jdk
-
-# Set working directory
-WORKDIR /app
-
-# Copy built JAR file from the builder stage
-COPY --from=builder /app/target/*.jar ./app.jar
-
-# Expose application port
+# Expose the backend service port
 EXPOSE 8080
 
-# Start the application
-CMD ["java", "-jar", "app.jar"]
+# Run the backend application
+ENTRYPOINT ["java", "-jar", "app.jar"]
