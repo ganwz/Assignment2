@@ -38,9 +38,9 @@ jar {
         attributes 'Main-Class': 'com.kett.ticketsystem.Application'         
     } 
  
-    from sourceSets.main.output  // Include compiled classes in the JAR 
-    archiveBaseName = 'hello-world-java'  // Name of the JAR file 
-    destinationDirectory = file('build/libs')  // Output directory for the JAR file 
+    from sourceSets.main.output  // Include compiled classes in the JAR
+    archiveBaseName = 'Assignment2-0.0.1-SNAPSHOT'  // Name of the JAR file
+    destinationDirectory = file('build/libs')  // Output directory for the JAR file
 }
 
 tasks.withType(JavaCompile) {
