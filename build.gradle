@@ -1,7 +1,8 @@
 plugins {
-    id 'org.springframework.boot' version '2.7.5'
-    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
     id 'java'
+    id 'war'
+    id 'org.springframework.boot' version '2.7.5'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 }
 
 group = 'com.kett'
@@ -17,53 +18,32 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-security'
-    
-    // Utilities and others
+
+    // ModelMapper
     implementation 'org.modelmapper:modelmapper:3.1.0'
+
+    // Commons Validator
     implementation 'commons-validator:commons-validator:1.7'
-    
-    // JSON Web Token (JWT) dependencies
+
+    // JWT (JSON Web Token) dependencies
     implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
-    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
-    
-    // Runtime dependencies
-    runtimeOnly 'org.springframework.boot:spring-boot-devtools'
-    runtimeOnly 'org.postgresql:postgresql'
-    runtimeOnly 'com.h2database:h2'
-    
-    // Lombok for reducing boilerplate code
+    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5' // or jjwt-gson if you prefer Gson
+
+    // Lombok for code simplification
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
-    // Test dependencies
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    // Development tools
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+    // Databases
+    runtimeOnly 'org.postgresql:postgresql'
+    runtimeOnly 'com.h2database:h2'
 }
 
-dependencyManagement {
-    imports {
-        mavenBom 'org.springframework.boot:spring-boot-dependencies:2.7.5'
-    }
-}
-
-// Use bootJar to create an executable JAR file including all dependencies
-bootJar {
-    archiveBaseName = 'Assignment2'
-    archiveVersion = '0.0.1-SNAPSHOT'
-    mainClass = 'com.kett.TicketSystem.TicketSystemApplication'
-}
-
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
-}
-
-// Make sure the source code is compiled and packaged in the JAR
-sourceSets {
-    main {
-        java {
-            srcDirs = ['src/main/java']
-        }
-    }
+bootWar {
+    archiveFileName = 'ticketing-system.war'
 }
 
 apply from: 'test.gradle'
