@@ -7,6 +7,12 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/ganwz/Assignment2.git'
             }
         }
+
+     stage('Stop Gradle Daemons') {
+            steps {
+                powershell './gradlew --stop'
+            }
+        }   
         stage('Build') {
             steps {
 
