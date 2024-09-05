@@ -45,11 +45,6 @@ dependencyManagement {
     }
 }
 
-// Ensure the main class is correctly specified in the springBoot block
-springBoot {
-    mainClass = 'com.kett.TicketSystem.TicketSystemApplication'
-}
-
 // Use bootJar to create an executable JAR file including all dependencies
 bootJar {
     archiveBaseName = 'Assignment2'
