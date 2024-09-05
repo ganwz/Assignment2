@@ -56,10 +56,6 @@ dependencyManagement {
     }
 }
 
-// Ensure the main class is correctly specified
-springBoot {
-    mainClass = 'com.kett.ticketsystem.Application'
-}
 
 // Use bootJar to create an executable JAR file including all dependencies
 bootJar {
