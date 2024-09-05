@@ -10,46 +10,25 @@ pipeline {
         stage('Stop Gradle Daemons') {
             steps {
                 // Stop any existing Gradle daemons before building
-                script {
-                    if (isUnix()) {
-                        sh './gradlew --stop'
-                    } else {
-                        powershell './gradlew --stop'
-                    }
-                }
+                powershell './gradlew --stop'
             }
         }
         stage('Build') {
             steps {
-                script {
-                    if (isUnix()) {
-                        sh './gradlew clean bootJar'
-                    } else {
-                        powershell './gradlew clean bootJar'
-                    }
-                }
+                // Clean and build the project
+                powershell './gradlew clean bootJar --info'
             }
         }
         stage('Test') {
             steps {
-                script {
-                    if (isUnix()) {
-                        sh './gradlew test'
-                    } else {
-                        powershell './gradlew test'
-                    }
-                }
+                // Run tests with more detailed output
+                powershell './gradlew test --info'
             }
         }
         stage('Deploy') {
             steps {
-                script {
-                    if (isUnix()) {
-                        sh 'java -jar build/libs/Assignment2-0.0.1-SNAPSHOT.jar'
-                    } else {
-                        powershell 'java -jar build/libs/Assignment2-0.0.1-SNAPSHOT.jar'
-                    }
-                }
+                // Run the built JAR file
+                powershell 'java -jar build/libs/Assignment2-0.0.1-SNAPSHOT.jar'
             }
         }
     }
@@ -57,15 +36,13 @@ pipeline {
     post {
         always {
             echo 'Cleaning up workspace'
-            cleanWs() // Clean up the workspace after the build
+            deleteDir() // Clean up the workspace after the build
         }
         success {
             echo 'Build and tests succeeded!!'
-            // Add notifications, such as email, if needed
         }
         failure {
             echo 'Build or tests failed!!'
-            // Add notification steps here for failure (e.g., send an email or Slack message)
         }
     }
 }
