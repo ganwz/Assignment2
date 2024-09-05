@@ -32,9 +32,7 @@ dependencyManagement {
         mavenBom 'org.springframework.boot:spring-boot-dependencies:2.7.5'
     }
 }
-springBoot {
-    mainClass = 'com.kett.ticketsystem.Application'
-}
+
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
