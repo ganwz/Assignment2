@@ -25,12 +25,6 @@ pipeline {
                 powershell './gradlew test --info'
             }
         }
-        stage('Deploy') {
-            steps {
-                // Run the built JAR file
-                powershell 'java -jar build/libs/Assignment2-0.0.1-SNAPSHOT.jar'
-            }
-        }
     }
 
     post {
