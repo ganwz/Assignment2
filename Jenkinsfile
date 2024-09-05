@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'master', url: 'https://github.com/ganwz/Assignment2.git'
+                git branch: 'main', url: 'https://github.com/ganwz/Assignment2.git'
             }
         }
         stage('Build') {
