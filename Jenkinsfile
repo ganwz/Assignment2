@@ -7,48 +7,44 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/ganwz/Assignment2.git'
             }
         }
-
-     stage('Stop Gradle Daemons') {
+        stage('Stop Gradle Daemons') {
             steps {
+                // Stop any existing Gradle daemons before building
                 powershell './gradlew --stop'
             }
-        }   
+        }
         stage('Build') {
             steps {
-
-                        powershell './gradlew clean build'
-                
+                // Clean and build the project
+                powershell './gradlew clean bootJar --info'
             }
         }
         stage('Test') {
             steps {
-                
-                        powershell './gradlew test'
-                  
+                // Run tests with more detailed output
+                powershell './gradlew test --info'
             }
         }
         stage('Deploy') {
-            steps {                
-                        powershell 'java -jar build/libs/Assignment2-0.0.1-SNAPSHOT.jar'
-                 }           
+            steps {
+                // Run the built JAR file
+                powershell 'java -jar build/libs/Assignment2-0.0.1-SNAPSHOT.jar'
+            }
         }
-    
-}
+    }
 
-post {
+    post {
         always {
             echo 'Cleaning up workspace'
             deleteDir() // Clean up the workspace after the build
         }
         success {
-            echo 'Build succeeded!!'
-            // You could add notification steps here, e.g., send an email
+            echo 'Build and tests succeeded!!'
+            // Add notifications, such as email, if needed
         }
         failure {
-            echo 'Build failed!!'
-            // You could add notification steps here, e.g., send an email or Slack message
+            echo 'Build or tests failed!!'
+            // Add notification steps here for failure (e.g., send an email or Slack message)
         }
     }
-    }
-
-
+}
