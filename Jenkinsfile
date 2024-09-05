@@ -16,7 +16,7 @@ pipeline {
         stage('Build') {
             steps {
                 // Clean and build the project
-                powershell './gradlew clean bootJar --info'
+                powershell './gradlew clean --info'
             }
         }
         stage('Test') {
