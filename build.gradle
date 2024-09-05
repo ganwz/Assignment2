@@ -45,16 +45,15 @@ dependencyManagement {
     }
 }
 
-// Ensure the main class is correctly specified
+// Ensure the main class is correctly specified in the springBoot block
 springBoot {
-    mainClass = 'com.kett.ticketsystem.Application'
+    mainClass = 'com.kett.ticketsystem.Application'  // Use `mainClass` instead of `mainClassName`
 }
 
 // Use bootJar to create an executable JAR file including all dependencies
 bootJar {
     archiveBaseName = 'Assignment2'
     archiveVersion = '0.0.1-SNAPSHOT'
-    mainClassName = 'com.kett.ticketsystem.Application'
 }
 
 tasks.withType(JavaCompile) {
