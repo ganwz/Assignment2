@@ -49,7 +49,7 @@ dependencyManagement {
 bootJar {
     archiveBaseName = 'Assignment2'
     archiveVersion = '0.0.1-SNAPSHOT'
-    mainClassName = 'com.kett.TicketSystem.TicketSystemApplication'  // Correct main class
+    mainClass = 'com.kett.TicketSystem.TicketSystemApplication'  // Correct main class
 }
 
 
