@@ -9,17 +9,6 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
 
 repositories {
-    mavenCentral()plugins {
-    id 'java'
-    id 'org.springframework.boot' version '2.7.5'
-    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
-}
-
-group = 'com.kett'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '17'
-
-repositories {
     mavenCentral()
 }
 
@@ -56,6 +45,10 @@ dependencyManagement {
     }
 }
 
+// Ensure the main class is correctly specified
+springBoot {
+    mainClass = 'com.kett.ticketsystem.Application'
+}
 
 // Use bootJar to create an executable JAR file including all dependencies
 bootJar {
@@ -73,50 +66,6 @@ jar {
     manifest { 
         attributes 'Main-Class': 'com.kett.ticketsystem.Application'  // Main class of your project      
     } 
-}
-
-apply from: 'test.gradle'
-
-}
-
-dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.modelmapper:modelmapper:3.1.0'
-    implementation 'commons-validator:commons-validator:1.7'
-    runtimeOnly 'org.springframework.boot:spring-boot-devtools'
-    runtimeOnly 'org.postgresql:postgresql'
-    runtimeOnly 'com.h2database:h2'
-    compileOnly 'org.projectlombok:lombok'
-    implementation 'org.springframework.boot:spring-boot-starter-security'
-    implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
-    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
-    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
-}
-
-dependencyManagement {
-    imports {
-        mavenBom 'org.springframework.boot:spring-boot-dependencies:2.7.5'
-    }
-}
-
-springBoot { 
-    manifest { 
-        attributes 'Main-Class': 'com.kett.ticketsystem.Application'         
-    } 
- 
-    bootJar {
-    archiveBaseName = 'Assignment2'
-    archiveVersion = '0.0.1-SNAPSHOT'
-}
-   
-
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
-}
-
-springBoot {
-    mainClass = 'com.kett.ticketsystem.Application'
 }
 
 apply from: 'test.gradle'
