@@ -16,13 +16,13 @@ pipeline {
         stage('Build') {
             steps {
                 // Clean and build the project
-                powershell './gradlew clean bootJar --info'
+                powershell './gradlew clean bootJar'
             }
         }
         stage('Test') {
             steps {
                 // Run tests with more detailed output
-                powershell './gradlew test --info'
+                powershell './gradlew test '
             }
         }
         stage('Deploy') {
