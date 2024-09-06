@@ -37,8 +37,8 @@ tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
-springBoot {
-    mainClass = 'com.kett.ticketsystem.Application'
+bootJar {
+    mainClass = 'com.kett.TicketSystem.TicketSystemApplication'
 }
 
 apply from: 'test.gradle'
